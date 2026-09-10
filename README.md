@@ -4,7 +4,7 @@ Scripts and data to reproduce Figures 1-7 of
 
 Liu, J., Wang, Y., Ye, Y., Liu, L., Liu, R., and Wang, Y., Magnetic and Thermal Properties of Solar Active Regions in 14 Years.
 
-Each `figN/` folder contains the arrays used in that figure (`figN_data.npz`) and a plotting script (`plot_figN.py`). The scripts only read the local npz file and draw the figure.
+Each `figN/` folder contains the raw data used in that figure (`figN_data.npz`) and a plotting script (`plot_figN.py`). The scripts read the local npz file and draw the figure.
 
 ## Requirements
 
