@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+*.png
+*.pdf
+*.eps
+.DS_Store
+.python-version
+.venv/
+venv/
