@@ -44,7 +44,7 @@ if np.any(perm):
     axes[0].contour(perm.astype(float), levels=[0.5], colors="yellow", linewidths=0.7)
 if np.any(cons):
     axes[0].contour(cons.astype(float), levels=[0.5], colors="black", linewidths=0.95)
-axes[0].set_title("(a) HARP 4379, 8–12 MK EM")
+axes[0].set_title("a) HARP 4379, 8–12 MK EM")
 axes[0].set_xticks([])
 axes[0].set_yticks([])
 
@@ -55,7 +55,7 @@ ax2 = ax.twinx()
 ax2.plot(sun.index, sun.to_numpy(), color="#d62728", ls="--", lw=1.1, alpha=0.85, label="sunspot number")
 ax2.set_ylabel("Sunspot number")
 ax.set_ylabel(r"8–12 MK $T_w$ (MK)")
-ax.set_title(r"(b) Sample-controlled versus spatially masked $T_w$")
+ax.set_title(r"b) Sample-controlled versus spatially masked $T_w$")
 handles, labels = ax.get_legend_handles_labels()
 handles2, labels2 = ax2.get_legend_handles_labels()
 ax.legend(handles + handles2, labels + labels2, frameon=False, fontsize=7, loc="upper left")
