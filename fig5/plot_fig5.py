@@ -46,15 +46,16 @@ fig, axes = plt.subplots(2, 3, figsize=(14.4, 8.1), constrained_layout=True)
 for i, (x, title) in enumerate(em_panels):
     ax = axes[0, i]
     color = colors[i]
-    x = _clip(np.log10(x[np.isfinite(x) & (x > 0)]))
+    raw = x[np.isfinite(x) & (x > 0)]
+    x = _clip(np.log10(raw))
     ax.hist(x, bins=40, density=True, color=color, alpha=0.55, edgecolor="#f5f5f5", linewidth=0.5)
     kde = gaussian_kde(x)
     xline = np.linspace(np.nanmin(x), np.nanmax(x), 240)
     yline = kde(xline)
     ax.plot(xline, yline, color=color, linewidth=2.0)
     x_peak = float(xline[int(np.nanargmax(yline))])
-    x_mean = float(np.nanmean(x))
-    x_median = float(np.nanmedian(x))
+    x_mean = float(np.log10(np.mean(raw)))
+    x_median = float(np.log10(np.median(raw)))
     ax.axvline(x_peak, color="black", linestyle="-", linewidth=1.2)
     ax.axvline(x_mean, color="black", linestyle="--", linewidth=1.2)
     ax.axvline(x_median, color="black", linestyle="-.", linewidth=1.2)
@@ -78,15 +79,16 @@ for i, (x, title) in enumerate(em_panels):
 for i, (x, title) in enumerate(tw_panels):
     ax = axes[1, i]
     color = colors[3 + i]
-    x = _clip(x[np.isfinite(x)])
+    raw = x[np.isfinite(x)]
+    x = _clip(raw)
     ax.hist(x, bins=40, density=True, color=color, alpha=0.55, edgecolor="#f5f5f5", linewidth=0.5)
     kde = gaussian_kde(x)
     xline = np.linspace(np.nanmin(x), np.nanmax(x), 240)
     yline = kde(xline)
     ax.plot(xline, yline, color=color, linewidth=2.0)
     x_peak = float(xline[int(np.nanargmax(yline))])
-    x_mean = float(np.nanmean(x))
-    x_median = float(np.nanmedian(x))
+    x_mean = float(np.mean(raw))
+    x_median = float(np.median(raw))
     ax.axvline(x_peak, color="black", linestyle="-", linewidth=1.2)
     ax.axvline(x_mean, color="black", linestyle="--", linewidth=1.2)
     ax.axvline(x_median, color="black", linestyle="-.", linewidth=1.2)

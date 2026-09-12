@@ -44,19 +44,24 @@ for i, (ax, (x, title)) in enumerate(zip(axes, panels)):
     ax.scatter(time[m], x[m], s=9, color="#1f77b4", alpha=0.35, edgecolors="none", zorder=1)
     trend_df = pd.DataFrame({"time": time[m], "x": x[m]}).dropna()
     trend_df["month"] = trend_df["time"].dt.to_period("M").dt.to_timestamp()
-    trend = trend_df.groupby("month")["x"].mean().sort_index()
+    trend = (
+        trend_df.groupby("month")["x"]
+        .mean()
+        .sort_index()
+        .reindex(sun.index)
+    )
     upper = (
         trend_df.groupby("month")["x"]
         .quantile(0.95)
         .sort_index()
-        .rolling(window=6, center=True, min_periods=6)
+        .reindex(sun.index)
+        .rolling(window=6, center=True, min_periods=4)
         .median()
     )
     trend_6m = trend.rolling(window=6, center=True, min_periods=4).mean()
-    upper_6m = upper.rolling(window=6, center=True, min_periods=4).mean()
     cc_b = _cc(trend_6m, sun)
-    cc_p = _cc(upper_6m, sun)
-    l1 = ax.plot(trend.index, trend.to_numpy(), color="#1f77b4", linewidth=2.2, zorder=3)
+    cc_p = _cc(upper, sun)
+    l1 = ax.plot(trend_6m.index, trend_6m.to_numpy(), color="#1f77b4", linewidth=2.2, zorder=3)
     l2 = ax.plot(upper.index, upper.to_numpy(), color="#CC79A7", linewidth=1.7, alpha=0.95, zorder=3)
     ax_r = ax.twinx()
     l3 = ax_r.plot(sun.index, sun.to_numpy(), color="#d62728", linewidth=1.8, linestyle="--")
@@ -68,7 +73,7 @@ for i, (ax, (x, title)) in enumerate(zip(axes, panels)):
     ax.tick_params(axis="y", labelcolor="#1f77b4", labelsize=8.4)
     ax.legend(
         list(l1) + list(l2) + list(l3),
-        [f"{title} monthly mean (CC={cc_b:.2f})", f"Upper envelope (CC={cc_p:.2f})", "Sunspot number"],
+        [f"{title} 6-month mean (CC={cc_b:.2f})", f"Upper envelope (CC={cc_p:.2f})", "Sunspot number"],
         loc="upper left",
         fontsize=8.2,
         frameon=False,

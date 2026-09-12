@@ -43,15 +43,23 @@ fig, axes = plt.subplots(3, 2, figsize=(14.4, 12.0), constrained_layout=True)
 axes = np.array(axes).reshape(-1)
 
 for i, (ax, (x, title, xlabel, kind, is_log, unit)) in enumerate(zip(axes, panels)):
-    x = x[np.isfinite(x)]
+    raw = x[np.isfinite(x)]
     if is_log:
-        x = np.log10(x[x > 0])
+        raw = raw[raw > 0]
+        x = np.log10(raw)
+        x_mean = float(np.log10(np.mean(raw)))
+        x_median = float(np.log10(np.median(raw)))
         bins = 40
     elif kind == "count":
+        x = raw
+        x_mean = float(np.mean(raw))
+        x_median = float(np.median(raw))
         bins = max(12, min(24, len(np.unique(x))))
     else:
-        p = np.nanpercentile(np.abs(x), 99.5)
-        x = x.clip(-p, p)
+        p = np.nanpercentile(np.abs(raw), 99.5)
+        x = raw.clip(-p, p)
+        x_mean = float(np.mean(raw))
+        x_median = float(np.median(raw))
         bins = 45
     color = colors[i]
     ax.hist(x, bins=bins, density=True, color=color, alpha=0.55, edgecolor="#f5f5f5", linewidth=0.5)
@@ -60,8 +68,6 @@ for i, (ax, (x, title, xlabel, kind, is_log, unit)) in enumerate(zip(axes, panel
     yline = kde(xline)
     ax.plot(xline, yline, color=color, linewidth=2.0)
     x_peak = float(xline[int(np.nanargmax(yline))])
-    x_mean = float(np.nanmean(x))
-    x_median = float(np.nanmedian(x))
     ax.axvline(x_peak, color="black", linestyle="-", linewidth=1.2)
     ax.axvline(x_mean, color="black", linestyle="--", linewidth=1.2)
     ax.axvline(x_median, color="black", linestyle="-.", linewidth=1.2)
