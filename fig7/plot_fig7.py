@@ -36,17 +36,21 @@ def _cc(y):
 
 plt.rcParams.update({"font.size": 10, "axes.titlesize": 11, "axes.labelsize": 10, "legend.fontsize": 8})
 fig, axes = plt.subplots(1, 2, figsize=(10.6, 4.5), gridspec_kw={"width_ratios": [1.0, 1.0]})
-fig.subplots_adjust(left=0.055, right=0.93, bottom=0.15, top=0.88, wspace=0.30)
+fig.subplots_adjust(left=0.075, right=0.93, bottom=0.17, top=0.88, wspace=0.30)
 finite = shown[np.isfinite(shown)]
 low, high = np.nanpercentile(finite, [5, 99.5])
-axes[0].imshow(shown, origin="lower", cmap="magma", vmin=low, vmax=high, aspect="auto")
+pixel_mm = float(d["pixel_size_mm"])
+x_half = 0.5 * shown.shape[1] * pixel_mm
+y_half = 0.5 * shown.shape[0] * pixel_mm
+extent = (-x_half, x_half, -y_half, y_half)
+axes[0].imshow(shown, origin="lower", cmap="magma", vmin=low, vmax=high, aspect="auto", extent=extent)
 if np.any(perm):
-    axes[0].contour(perm.astype(float), levels=[0.5], colors="yellow", linewidths=0.7)
+    axes[0].contour(perm.astype(float), levels=[0.5], colors="yellow", linewidths=0.7, origin="lower", extent=extent)
 if np.any(cons):
-    axes[0].contour(cons.astype(float), levels=[0.5], colors="black", linewidths=0.95)
+    axes[0].contour(cons.astype(float), levels=[0.5], colors="black", linewidths=0.95, origin="lower", extent=extent)
 axes[0].set_title("a) HARP 4379, 8–12 MK EM")
-axes[0].set_xticks([])
-axes[0].set_yticks([])
+axes[0].set_xlabel("X [Mm]")
+axes[0].set_ylabel("Y [Mm]")
 
 ax = axes[1]
 for y, name, color in series:
@@ -55,6 +59,7 @@ ax2 = ax.twinx()
 ax2.plot(sun.index, sun.to_numpy(), color="#d62728", ls="--", lw=1.1, alpha=0.85, label="sunspot number")
 ax2.set_ylabel("Sunspot number")
 ax.set_ylabel(r"8–12 MK $T_w$ (MK)")
+ax.set_xlabel("Time")
 ax.set_title(r"b) Sample-controlled versus spatially masked $T_w$")
 handles, labels = ax.get_legend_handles_labels()
 handles2, labels2 = ax2.get_legend_handles_labels()

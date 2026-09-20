@@ -31,9 +31,9 @@ def _fmt(v, kind):
 panels = [
     (np.asarray(d["area"], dtype=float), "AR area", r"$\log_{{10}}(\mathrm{\mu Hem})$", "log", True, "microHem"),
     (np.asarray(d["usflux"], dtype=float), "Unsigned flux (USFlux)", r"$\log_{{10}}(\mathrm{Mx})$", "log", True, "Mx"),
-    (np.asarray(d["netflux"], dtype=float), "Signed net flux (NetFlux)", r"Mx (linear; signed)", "sci", False, "Mx"),
-    (np.asarray(d["bz_mean"], dtype=float), r"Signed mean $B_z$ ($|B_z|\geq150$ G)", r"G (linear)", "G", False, "G"),
-    (np.asarray(d["abs_bz_mean"], dtype=float), r"Mean $|B_z|$ ($|B_z|\geq150$ G)", r"G (linear)", "G", False, "G"),
+    (np.asarray(d["netflux"], dtype=float), "Signed net flux (NetFlux)", "Mx", "sci", False, "Mx"),
+    (np.asarray(d["bz_mean"], dtype=float), r"Signed mean $B_z$ ($|B_z|\geq150$ G)", "Gauss", "G", False, "G"),
+    (np.asarray(d["abs_bz_mean"], dtype=float), r"Mean $|B_z|$ ($|B_z|\geq150$ G)", "Gauss", "G", False, "G"),
     (np.asarray(d["monthly_ar_count"], dtype=float), "Monthly AR count", "number of ARs", "count", False, ""),
 ]
 colors = ["#4E79A7", "#F28E2B", "#59A14F", "#E15759", "#76B7B2", "#B07AA1"]

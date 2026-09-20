@@ -29,9 +29,9 @@ def _fmt(v, is_log, unit):
 
 
 em_panels = [
-    (np.asarray(d["em_warm"], dtype=float), "EM (T < 3 MK)"),
-    (np.asarray(d["em_hot"], dtype=float), "EM (3-8 MK)"),
-    (np.asarray(d["em_superhot"], dtype=float), "EM (8-12 MK)"),
+    (np.asarray(d["em_warm"], dtype=float), "EM Total (T < 3 MK)"),
+    (np.asarray(d["em_hot"], dtype=float), "EM Total (3-8 MK)"),
+    (np.asarray(d["em_superhot"], dtype=float), "EM Total (8-12 MK)"),
 ]
 tw_panels = [
     (np.asarray(d["tw_warm"], dtype=float) / 1e6, "Tw (T < 3 MK)"),

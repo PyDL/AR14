@@ -84,7 +84,9 @@ for i, (ax, (x, title)) in enumerate(zip(axes, panels)):
 for ax in axes:
     ax.xaxis.set_major_locator(mdates.YearLocator(base=2))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
-    ax.tick_params(axis="x", rotation=30, labelsize=9.0)
+    ax.tick_params(axis="x", rotation=30, labelsize=9.0, labelbottom=True)
+for ax in axes[-3:]:
+    ax.set_xlabel("Time", fontsize=10.0)
 
 out = HERE / "fig6.png"
 fig.savefig(out, dpi=260)

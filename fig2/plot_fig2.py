@@ -54,7 +54,7 @@ cb1.set_label(r"Total EM [cm$^{-3}$]")
 for ax in axes:
     ax.axhline(0, color="gray", linewidth=0.9, alpha=0.7)
     ax.set_ylim(-45, 45)
-    ax.set_ylabel("Latitude (deg, LAT_FWT)")
+    ax.set_ylabel("Latitude (deg)")
     ax.xaxis.set_major_locator(mdates.YearLocator(base=1))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     ax.tick_params(axis="x", rotation=35)
