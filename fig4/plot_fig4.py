@@ -61,7 +61,7 @@ for i, (ax, (title, x)) in enumerate(zip(axes, values.items())):
     legend_plain = title.split(" [", 1)[0]
     l1 = ax.plot(trend_6m.index, trend_6m.to_numpy(), color="#1f77b4", linewidth=2.2, zorder=3)
     handles = list(l1)
-    labels = [f"{legend_plain} 6-month mean (CC={cc_b:.2f})"]
+    labels = [f"{legend_plain} 6-month-smoothed monthly mean (CC={cc_b:.2f})"]
     if i != 3:
         cc_p = _cc(upper, sun)
         l2 = ax.plot(upper.index, upper.to_numpy(), color="#CC79A7", linewidth=1.7, alpha=0.95, zorder=3)

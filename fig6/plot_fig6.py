@@ -17,14 +17,14 @@ time = pd.to_datetime(np.asarray(d["time"]))
 sun = pd.Series(np.asarray(d["sunspot"], dtype=float), index=pd.to_datetime(np.asarray(d["sunspot_time"]))).sort_index()
 panels = [
     (np.asarray(d["em_warm"], dtype=float), r"EM total ($T<3$ MK)"),
-    (np.asarray(d["em_hot"], dtype=float), r"EM total ($3$--$8$ MK)"),
-    (np.asarray(d["em_superhot"], dtype=float), r"EM total ($8$--$12$ MK)"),
+    (np.asarray(d["em_hot"], dtype=float), "EM total (3–8 MK)"),
+    (np.asarray(d["em_superhot"], dtype=float), "EM total (8–12 MK)"),
     (np.asarray(d["emavg_warm"], dtype=float), r"Average EM ($T<3$ MK)"),
-    (np.asarray(d["emavg_hot"], dtype=float), r"Average EM ($3$--$8$ MK)"),
-    (np.asarray(d["emavg_superhot"], dtype=float), r"Average EM ($8$--$12$ MK)"),
+    (np.asarray(d["emavg_hot"], dtype=float), "Average EM (3–8 MK)"),
+    (np.asarray(d["emavg_superhot"], dtype=float), "Average EM (8–12 MK)"),
     (np.asarray(d["tw_warm"], dtype=float), r"$T_w$ ($T<3$ MK)"),
-    (np.asarray(d["tw_hot"], dtype=float), r"$T_w$ ($3$--$8$ MK)"),
-    (np.asarray(d["tw_superhot"], dtype=float), r"$T_w$ ($8$--$12$ MK)"),
+    (np.asarray(d["tw_hot"], dtype=float), r"$T_w$ (3–8 MK)"),
+    (np.asarray(d["tw_superhot"], dtype=float), r"$T_w$ (8–12 MK)"),
 ]
 
 
@@ -73,7 +73,7 @@ for i, (ax, (x, title)) in enumerate(zip(axes, panels)):
     ax.tick_params(axis="y", labelcolor="#1f77b4", labelsize=8.4)
     ax.legend(
         list(l1) + list(l2) + list(l3),
-        [f"{title} 6-month mean (CC={cc_b:.2f})", f"Upper envelope (CC={cc_p:.2f})", "Sunspot number"],
+        [f"6-month-smoothed monthly mean (CC={cc_b:.2f})", f"Upper envelope (CC={cc_p:.2f})", "Sunspot number"],
         loc="upper left",
         fontsize=8.2,
         frameon=False,
